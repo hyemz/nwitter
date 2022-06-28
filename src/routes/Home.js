@@ -31,7 +31,7 @@ const Home = (userObj) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = '';
-    if (attachment != '') {
+    if (attachment !== '') {
       const fileRef = ref(storageService, `${userObj.userObj}/${uuidv4()}`);
       const response = await uploadString(fileRef, attachment, 'data_url');
       attachmentUrl = await getDownloadURL(response.ref);
