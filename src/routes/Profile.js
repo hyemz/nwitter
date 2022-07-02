@@ -19,7 +19,7 @@ export default ({ userObj, userObjs, refreshUser }) => {
     );
     const querySnapshot = await getDocs(nweets);
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data());
+      //doc.id, ' => ', doc.data());
     });
   };
   useEffect(() => {
@@ -38,26 +38,39 @@ export default ({ userObj, userObjs, refreshUser }) => {
         displayName: newDisplayName,
       })
         .then(() => {
-          console.log('성공');
+          // console.log('성공');
           refreshUser();
         })
         .catch((error) => {
-          console.log(error);
+          //console.log(error);
         });
     }
   };
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          onChange={onChange}
-          value={newDisplayName}
-          placeholder="Display Name"
-        ></input>
-        <input type="submit" value="Update Profile"></input>
-      </form>
-      <button onClick={onLogOutClick}>Log Out</button>
-    </>
+    <div className="container">
+      <>
+        <form onSubmit={onSubmit} className="profileForm">
+          <input
+            type="text"
+            autoFocus
+            onChange={onChange}
+            value={newDisplayName}
+            placeholder="Display Name"
+            className="formInput"
+          ></input>
+          <input
+            type="submit"
+            value="Update Profile"
+            className="formBtn"
+            style={{
+              marginTop: 10,
+            }}
+          ></input>
+        </form>
+        <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+          Log Out
+        </span>
+      </>
+    </div>
   );
 };

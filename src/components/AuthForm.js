@@ -23,17 +23,11 @@ const AuthForm = () => {
   const onSubmit = async (event) => {
     event.preventDefault(); // 내가 컨트롤, , , 기본 행위 실행 안됨
     try {
-      let data;
       if (newAccount) {
-        data = await createUserWithEmailAndPassword(
-          authService,
-          email,
-          password
-        );
+        await createUserWithEmailAndPassword(authService, email, password);
       } else {
-        data = await signInWithEmailAndPassword(authService, email, password);
+        await signInWithEmailAndPassword(authService, email, password);
       }
-      console.log(data);
     } catch (e) {
       setError(e.message);
     }
@@ -42,7 +36,7 @@ const AuthForm = () => {
   const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="container">
         <input
           name="email"
           type="text"
@@ -50,6 +44,7 @@ const AuthForm = () => {
           required
           value={email}
           onChange={onChange}
+          className="authInput"
         ></input>
         <input
           name="password"
@@ -58,14 +53,16 @@ const AuthForm = () => {
           required
           value={password}
           onChange={onChange}
+          className="authInput"
         ></input>
         <input
           type="submit"
           value={newAccount ? 'Create Account' : 'Log In'}
+          className="authInput authSubmit"
         ></input>
-        {error}
+        {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount}>
+      <span onClick={toggleAccount} className="authSwitch">
         {newAccount ? 'Sign In' : 'Create Account'}
       </span>
     </>
